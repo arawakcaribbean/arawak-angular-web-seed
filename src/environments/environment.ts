@@ -17,7 +17,7 @@ export const environment = {
   },
   IdentityConfig : {        
     url: "https://console.opencaribbean.org/auth",
-    clientId: "arawaks-web-local",      
+    clientId: "arawaks-web",      
     realm: "arawaks",    
   }   
 };
