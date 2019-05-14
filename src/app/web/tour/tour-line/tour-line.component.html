@@ -1,0 +1,95 @@
+
+<div style="text-align: center;">
+ <p *ngIf="startDate">{{'START TOUR AT'|i18next}}: {{startDate.year}}/{{startDate.month}}/{{startDate.day}}</p>
+         <button (click)="open(content)" class="btn btn-primary">{{'ADD PLACE'|i18next}}</button>
+</div>
+
+<div id="cd-timeline" class="cd-container">
+ 
+  <div *ngFor="let item of tourList;let i = index" class="cd-timeline-block">
+			<div class="cd-timeline-img cd-picture"></div>
+			<div class="cd-timeline-content">
+				 <h2>{{item.placeName}}</h2>
+        <div class="timeline-content-info">
+          <span [ngbTooltip]="'Tour guide operator'|i18next" class="timeline-content-info-title">
+            <i class="fa fa-male" aria-hidden="true"></i>
+           <span *ngIf="!isEmphy(item.tourGuideOperator)">{{item.tourGuideOperator}}</span>
+           <span style="font-style:italic" *ngIf="isEmphy(item.tourGuideOperator)">{{'Not assigned'|i18next}}</span>
+          </span>
+          <span [ngbTooltip]="'Reservation date'|i18next"  class="timeline-content-info-date">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            {{item.date}}
+          </span>
+        </div>
+        <div class="timeline-content-info">
+           <span placement="top"  *ngFor="let item of item.listTypes">
+             <img [ngbTooltip]="item.text" [src]="item.image" />
+            </span>
+        </div>
+
+        <p>
+            <slideshow *ngIf="item.images.length>0" [height]="'225px'"
+                        [minHeight]="'225px'"
+                    [autoPlay]="true"
+                    [showArrows]="true"
+                    [imageUrls]="item.images"
+                    [lazyLoad]="item.images?.length > 1"
+                    [autoPlayWaitForLazyLoad]="true">
+            </slideshow>  
+        </p>
+				<p>
+          {{item.description}}
+        </p>
+        <!--
+        <ul class="content-skills">       
+            <li>Wordpress</li>
+        </ul>
+        -->
+        <button    (click)="delete(item.id)" style="margin-left:4px;float:right" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+        <button    (click)="show(modalPlaceDetails,item.resource)" style="margin-left:4px;float:right" class="btn btn-sm btn-danger"><i class="fa fa-eye"></i></button>
+        <ngb-rating [readonly]="true" style="float:left;margin-top:-10px;font-size: 1.5rem;color: yellow;" [max]="5" [(rate)]="item.rate"></ngb-rating>
+
+			</div>  
+		</div>  
+</div>
+
+<div style="text-align: center;">
+ <p *ngIf="endDate">{{'END TOUR AT'|i18next}}: {{endDate.year}}/{{endDate.month}}/{{endDate.day}}</p>
+        
+</div>
+
+ <p *ngIf="tourList.length==0" class="centerDiv">{{'Select a place for see details and add to tour'|i18next}}</p>
+
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{'SELECT A PLACE'|i18next}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">  
+        <form-tour-modal [countryId]="countryId"  [startDate]="startDate" [endDate]="endDate"  (onChangeData)="handleChangeDate($event)" (onValidate)="handleValidate($event)"></form-tour-modal>    
+  </div>
+  <div class="modal-footer">
+    <button [disabled]="disabledBtnSubmit" type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');">{{'Add this Place'}}</button>
+  </div>
+</ng-template>
+
+
+<ng-template #modalPlaceDetails let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{'Place Details'|i18next}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">  
+        <place-show-details [selectPlace]="selectPlace" ></place-show-details>
+  </div>
+  <div class="modal-footer">
+    <button [disabled]="disabledBtnSubmit" type="button" class="btn btn-outline-dark" (click)="modal.close('Save click');">{{'Close'}}</button>
+  </div>
+</ng-template>

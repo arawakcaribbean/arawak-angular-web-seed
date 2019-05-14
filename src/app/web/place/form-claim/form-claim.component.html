@@ -1,0 +1,68 @@
+
+
+  <section class="bg-light  pulse animated">
+    <div class="container">
+      
+
+      <div class="row">
+        <div class="col-lg-12 text-center">
+        <h2 class="section-heading text-uppercase">{{ 'Form Claim Resource' | i18next}}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+        
+        <form [formGroup]="form">         
+                        <div class="form-row">
+                                <div class="form-group col-md-6">
+                                      <div class="form-row">
+                                          <div class="form-group col-md-12">
+                                              <div class="form-group">
+                                                    <label for="fullNameClaimer">{{'Full Name'|i18next}}</label>
+                                                    <input require formControlName="fullNameClaimer" type="text" class="form-control" id="fullNameClaimer" >
+                                              </div>
+                                          </div>
+                                          <div class="form-group col-md-12">
+                                              <div class="form-group">
+                                                    <label for="emailClaimer">{{'Email'|i18next}}</label>
+                                                    <input require formControlName="emailClaimer" type="text" class="form-control" id="emailClaimer" >
+                                              </div>
+                                          </div>
+                                          <div class="form-group col-md-12">
+                                              <div class="form-group">
+                                                    <label for="addressClaimer">{{'Address'|i18next}}</label>
+                                                    <textarea rows="7" formControlName="addressClaimer" type="text" class="form-control" id="addressClaimer" ></textarea>
+                                              </div>
+                                          </div>                                
+                                      </div>
+
+                           
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                      <div class="form-row">
+                                           <div class="form-group col-md-12">
+                                              <div class="form-group">
+                                                    <label for="phoneClaimer">{{'Phone'|i18next}}</label>
+                                                    <input require formControlName="phoneClaimer" type="text" class="form-control" id="phoneClaimer" >
+                                              </div>
+                                          </div>
+                               
+                                          <div class="form-group col-md-12">
+                                              <div class="form-group">
+                                                    <label for="reason">{{'Reason'|i18next}}</label>
+                                                    <textarea rows="7" formControlName="reason" type="text" class="form-control" id="reason" ></textarea>
+                                              </div>
+                                          </div>                            
+                                      </div>                           
+                                </div>
+                       </div>
+                        <button type="submit" [ladda]="isSubmit" (click)="submit()" class="btn btn-primary float-right">Submit</button>
+
+               
+         </form>
+        
+        </div>          
+      </div>
+    </div>
+  </section>

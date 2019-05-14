@@ -1,0 +1,61 @@
+<form class="needs-validation" [formGroup]="form" novalidate>
+      <div class="row">
+          <div class="col-lg-6 col-sm-12">
+                  <div class="form-group col-md-12">
+                                <label for="placeSelect">{{ 'Select a Place' | i18next}}</label>
+                                  <div class="input-group" >
+                                 <input [(ngModel)]="filter" [ngModelOptions]="{standalone: true}" autoFocus id="search-field" type="text" class="form-control" placeholder="Find fabulous tourist places here" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                  <div class="input-group-append">
+                                          <button class="btn btn-outline-secondary calendar" [ladda]="loading" (click)="search()" type="button"><i class="fa fa-search"></i></button>
+                                  </div>
+                                </div>
+                                <div id="modal-map"></div>
+                                <span class="helpDiv" >{{'Select a start and end date to see the available places in the selected interval'|i18next}}</span>
+                                <br />                                
+                                <button [ladda]="loadingReserve" *ngIf="showBntReserve && selectedResource && selectedResource.bookeable" (click)="goReverve()" [ladda]="isLoadingClain" style="margin-top:40px;margin-left: 90px;" class="btn btn-small btn-primary"><i class="fa fa-calendar"></i> {{'Reserve now'|i18next}}</button>
+
+                  </div>
+          </div>
+          <div class="col-lg-6 col-sm-12">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                      <div class="form-group">
+                          <label for="startDate">{{'Start Date'|i18next}}</label>
+                                <div class="input-group  col-md-12">
+                                      <input id="startDate" formControlName="startDate"  class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                                      <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                                      </div>
+                                </div>            
+                     </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                        <div class="form-group">
+                                  <label for="endDate">{{'End Date'|i18next}}</label>
+                                        <div class="input-group  col-md-12">
+                                              <input id="endDate" formControlName="endDate"  class="form-control" placeholder="yyyy-mm-dd" name="dp1" ngbDatepicker #dp1="ngbDatepicker">
+                                              <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary calendar" (click)="dp1.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                                              </div>
+                                        </div>            
+                        </div>
+                </div>                
+            </div>
+
+            <div>
+              <p *ngIf="selectedType==''" class="centerDiv">{{'Select a place for see details and add to tour'|i18next}}</p>
+               <place-atraction-show [onlyView]="true" [resourceID]="selectedID" *ngIf="selectedType=='Attraction'"></place-atraction-show>
+              <place-transportation-operators-show [onlyView]="true" [resourceID]="selectedID" *ngIf="selectedType=='Transportation_Operators'"></place-transportation-operators-show>
+              <place-event-show [onlyView]="true" [resourceID]="selectedID" *ngIf="selectedType=='Event'"></place-event-show>
+              <place-accommodation-show [onlyView]="true" [resourceID]="selectedID" *ngIf="selectedType=='Accommodation'"></place-accommodation-show>
+
+              </div>
+          </div>
+      </div>
+
+
+      
+     
+
+
+    </form>

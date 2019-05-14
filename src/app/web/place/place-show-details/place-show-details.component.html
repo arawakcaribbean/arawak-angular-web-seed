@@ -1,0 +1,14 @@
+     <div class="container">       
+      <div class="row">
+        <div class="col-md-6 col-sm-6 ">
+          <div id="mapPS"></div>
+        </div>
+         <div class="col-md-6">           
+              <place-atraction-show [onlyView]="true" [resourceID]="selectedID" *ngIf="selectedType=='Attraction'"></place-atraction-show>
+              <place-transportation-operators-show [onlyView]="true" [resourceID]="selectedID" *ngIf="selectedType=='Transportation_Operators'"></place-transportation-operators-show>
+              <place-event-show [onlyView]="true" [resourceID]="selectedID" *ngIf="selectedType=='Event'"></place-event-show>
+              <place-accommodation-show [onlyView]="true" [resourceID]="selectedID" *ngIf="selectedType=='Accommodation'"></place-accommodation-show>
+         </div>
+      </div>
+    </div>
+ 

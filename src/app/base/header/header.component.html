@@ -1,0 +1,26 @@
+<header class="masthead">
+    <div class="container">
+    
+      <div class="intro-text" >       
+        <div class="intro-lead-in pulse animated" >{{'Welcome To Our Caribbean Tour Platform!'|i18next}}</div>
+      <div class="intro-heading text-uppercase  pulse animated">It's Nice To Meet You</div>
+        <div class="row">
+          <div class="col-md-8">
+         
+              <div class="input-group mb-3">
+                  <input [(ngModel)]="filter" (keyup)="goRedirect(false)" id="search-field" type="text" class="form-control text-uppercase" placeholder="Find fabulous tourist places here" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                       <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" (click)="goRedirect(true)" type="button"><i class="fa fa-search"></i></button>
+                  </div>
+              </div>
+         
+          </div>
+          <div class="col-md-4">
+                  <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" (click)="goFormTour()">{{'Build Tour'|i18next}} <i class="fa fa-cogs"></i> </a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>

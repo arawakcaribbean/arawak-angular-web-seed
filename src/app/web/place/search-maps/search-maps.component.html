@@ -1,0 +1,31 @@
+ 
+  <section class="bg-light  pulse animated" id="places">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading text-uppercase">{{ 'Search Places' | i18next}}</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-sm-8 ">
+          <div id="map"></div>
+        </div>
+         <div class="col-md-4">
+            
+              <div class="input-group mb-3">
+                  <input [(ngModel)]="filter" autoFocus id="search-field" type="text" class="form-control" placeholder="Find fabulous tourist places here" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                       <button (click)="loadPlace()" [ladda]="loading" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" type="button"><i class="fa fa-search"></i></button>
+                  </div>
+              </div>
+
+              <span class="centerDiv" *ngIf="selectedType==''">{{'Select a place in map to see details'|i18next}}</span>
+                 <place-atraction-show [onlyView]="false" [resourceID]="selectedID" *ngIf="selectedType=='Attraction'"></place-atraction-show>
+              <place-transportation-operators-show [onlyView]="false" [resourceID]="selectedID" *ngIf="selectedType=='Transportation_Operators'"></place-transportation-operators-show>
+              <place-event-show [onlyView]="false" [resourceID]="selectedID" *ngIf="selectedType=='Event'"></place-event-show>
+              <place-accommodation-show [onlyView]="false" [resourceID]="selectedID" *ngIf="selectedType=='Accommodation'"></place-accommodation-show>
+
+          </div>
+      </div>
+    </div>
+  </section>

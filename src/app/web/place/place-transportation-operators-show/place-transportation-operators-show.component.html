@@ -1,0 +1,118 @@
+    <div class="loading">
+        <ngx-loading [show]="isLoading" [config]="_config.spinner" ></ngx-loading>
+         <div   class="col-12" *ngIf="!isLoading && !onlyView">
+                      
+                   <ngb-rating (rateChange)="onRate($event)" style="float:left;font-size: 1.5rem;color: #1e90ff;" [readonly]="iRateThisResource || !isLogged" [max]="5" [(rate)]="rate"></ngb-rating>
+                   
+                    <span  style="float:right;padding:0px;padding-right:5px;" (click)="onDisLike()">
+                    <lottie-animation-view
+                    style="float:left;transform:rotate(-180deg)"
+                    [options]="lottieDisLikeConfig"
+                    [width]="50"
+                    [height]="50"
+                    (animCreated)="handleDisLikeAnimation($event)">
+                    </lottie-animation-view> 
+                    <span style="float:right;margin-top:12px">{{disLikes}}</span>
+                   </span>
+                   
+                   
+                   <span  style="float:right;padding:0px;padding-right:5px;" (click)="onLike()">
+                    <lottie-animation-view
+                    style="float:left;"
+                    [options]="lottieLikeConfig"
+                    [width]="50"
+                    [height]="50"
+                    (animCreated)="handleLikeAnimation($event)">
+                    </lottie-animation-view> 
+                    <span style="float:right;margin-top:12px">{{likes}}</span>
+                   </span>
+                      
+         </div> 
+        <table *ngIf="!isLoading" class="table-responsive">
+            <tbody>
+                <tr style="border-bottom:2px #c3c3c3 solid;margin-bottom:10px;">
+                    <td style="font-weight:bolder;color:#c3c3c3;">{{'TOUR'|i18next}}</td>
+                    <td></td>
+                </tr>
+                <tr *ngIf="!isEmphy(data.name)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'Name'|i18next}}:</td>
+                    <td>{{data.name}}</td>
+                </tr>
+                 <tr  *ngIf="!isEmphy(data.description)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'Description'|i18next}}:</td>
+                    <td>{{data.description}}</td>
+                </tr>
+                <tr *ngIf="!isEmphy(listTypes)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'Type'|i18next}}:</td>
+                    <td>
+                        <span placement="top"  *ngFor="let item of listTypes">
+                            <img [ngbTooltip]="item.text" [src]="item.image" />
+                        </span>
+                    </td>
+                </tr>
+               
+                <tr *ngIf="!isEmphy(data.numOfCars)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'# of Car'|i18next}}:</td>
+                    <td>{{data.numOfCars}}</td>
+                </tr>
+
+                <tr *ngIf="!isEmphy(data.tourGuideOperator)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'Tour guide'|i18next}}:</td>
+                    <td>{{data.tourGuideOperator}}</td>
+                </tr>
+              
+                 <tr style="border-bottom:2px #c3c3c3 solid;margin-bottom:10px;">
+                    <td style="font-weight:bolder;color:#c3c3c3;">{{'PLACE'|i18next}}</td>
+                    <td></td>
+                </tr>
+                <tr *ngIf="!isEmphy(data.country)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'Country'|i18next}}:</td>
+                    <td>{{(data.country)?data.country.name:"-"}}</td>
+                </tr> 
+                <tr *ngIf="!isEmphy(data.city)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'City'|i18next}}:</td>
+                    <td>{{data.city}}</td>
+                </tr>              
+                <tr *ngIf="!isEmphy(data.state)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'State'|i18next}}:</td>
+                    <td>{{data.state}}</td>
+                </tr>
+                <tr *ngIf="!isEmphy(data.street)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'Street'|i18next}}:</td>
+                    <td>{{data.street}}</td>
+                </tr>
+                <tr *ngIf="!isEmphy(data.email)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'Email'|i18next}}:</td>
+                    <td>{{data.email}}</td>
+                </tr>
+                <tr *ngIf="!isEmphy(data.fax)">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'Fax'|i18next}}:</td>
+                    <td>{{data.fax}}</td>
+                </tr>
+                <tr *ngIf="!isEmphy(data.phoneNumbers) && data.phoneNumbers.length>0">
+                    <td style="font-weight:bolder">&nbsp;&nbsp;&nbsp;{{'phoneNumbers'|i18next}}:</td>
+                    <td>{{data.phoneNumbers}}</td>
+                </tr>
+                 <tr *ngIf="!isLoading && listImages.length>0" style="border-bottom:2px #c3c3c3 solid;margin-bottom:10px;">
+                    <td style="font-weight:bolder;color:#c3c3c3;">{{'IMAGES'|i18next}}</td>
+                    <td></td>
+                </tr>
+            <tbody>
+        </table>
+    <msg-table-empthy *ngIf="!isLoading && listImages.length==0"></msg-table-empthy>
+        
+    <slideshow *ngIf="!isLoading && listImages.length>0" [height]="'225px'"
+        [minHeight]="'225px'"
+        [autoPlay]="true"
+        [showArrows]="true"
+        [imageUrls]="listImages"
+        [lazyLoad]="listImages?.length > 1"
+        [autoPlayWaitForLazyLoad]="true">
+    </slideshow>  
+    <button *ngIf="!isLoading && !onlyView && isLogged" (click)="goClain()" [ladda]="isLoadingClain" style="float:right;margin-top:15px" class="btn btn-small btn-primary"><i class="fa fa-mitten"></i> {{'Claim'|i18next}}</button>
+
+
+    </div>
+
+
+ 
